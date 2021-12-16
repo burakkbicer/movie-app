@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Colors from '../constants/Colors';
+import Fonts from '../constants/Fonts';
 
 const { width } = Dimensions.get('screen');
 
@@ -50,5 +51,6 @@ const styles = StyleSheet.create({
   genreText: {
     fontSize: 13,
     color: Colors.ACTIVE,
+    fontFamily: Fonts.BOLD,
   },
 });
