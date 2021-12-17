@@ -10,7 +10,5 @@ npm-debug.*
 *.orig.*
 web-build/
 
-Urls.js
-
 # macOS
 .DS_Store

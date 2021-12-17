@@ -21,11 +21,14 @@ const MovieCard = ({
   voteCount,
   poster,
   size,
+  heartLess,
+  onPress,
 }) => {
   const [liked, setLiked] = useState(false);
+  const [voteCountValue, setVoteCountValue] = useState(voteCount);
 
   return (
-    <TouchableOpacity activeOpacity={0.8}>
+    <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
       <ImageBackground
         style={{ ...styles.container, width: 230 * size, height: 340 * size }}
         imageStyle={{ borderRadius: 12 }}
@@ -47,14 +50,23 @@ const MovieCard = ({
             {voteAverage}
           </Text>
         </View>
-        <TouchableNativeFeedback onPress={() => setLiked(!liked)}>
-          <Ionicons
-            name={liked ? 'heart' : 'heart-outline'}
-            size={25 * size}
-            color={liked ? Colors.HEART : Colors.WHITE}
-            style={{ position: 'absolute', bottom: 10, left: 10 }}
-          />
-        </TouchableNativeFeedback>
+        {!heartLess ? (
+          <TouchableNativeFeedback
+            onPress={() => {
+              setLiked(!liked);
+              setVoteCountValue(
+                liked ? voteCountValue - 1 : voteCountValue + 1
+              );
+            }}
+          >
+            <Ionicons
+              name={liked ? 'heart' : 'heart-outline'}
+              size={25 * size}
+              color={liked ? Colors.HEART : Colors.WHITE}
+              style={{ position: 'absolute', bottom: 10, left: 10 }}
+            />
+          </TouchableNativeFeedback>
+        ) : null}
       </ImageBackground>
       <View>
         <Text
@@ -74,7 +86,7 @@ const MovieCard = ({
               color={Colors.HEART}
               style={{ marginRight: 5 }}
             />
-            <Text style={styles.movieSubTitle}>{voteCount}</Text>
+            <Text style={styles.movieSubTitle}>{voteCountValue}</Text>
           </View>
         </View>
       </View>
@@ -84,6 +96,7 @@ const MovieCard = ({
 
 MovieCard.defaultProps = {
   size: 1,
+  heartLess: true,
 };
 
 export default MovieCard;
